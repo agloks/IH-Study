@@ -175,6 +175,8 @@ for(let y = 0;y < numbers; y += 1) {
     rover_one.travelLog.push(mapa.position);
 }
 
+//----------------------- ATÉ AQUI -------------------------------
+
 var count_local = 0;
 function prints(a,rover,obstacle) {
     if(OBSTACLES.includes(a)=== true || obstacle.includes(a)) {
