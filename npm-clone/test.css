@@ -25,6 +25,8 @@ nav ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight:bold;
+  font-size:14px;
 }
 
 nav a {
@@ -38,10 +40,11 @@ nav a {
 }
 
 #first-header span {
-  font-size:13px;
+  font-size:12px;
   font-style: italic;
   position: relative;
   bottom: 5px;
+  font-weight:bold;
 }
 
 .blackheart {
@@ -65,10 +68,12 @@ nav a {
 #second-header form input {
   margin: 0;
   width: 100%;
+  border: 0px;
 }
 
 .logo {
   height: 20px;
+  width: 70px;
 }
 
 .lupa {
@@ -87,11 +92,16 @@ nav a {
   border:9px solid #fb3e44;
 }
 
+.sign {
+  font-size: 14px;
+}
+
 .join {
-  border: 2px solid blue;
+  border: 2px solid #2f36432b;
   padding: 3px 22px 3px 22px;
   color: black;
   text-decoration-line: none;
+  font-weight:bold;
 }
 
 .login {
@@ -151,7 +161,8 @@ h1 {
   justify-content: center;
   font-size: 26;
   text-decoration: none;
-  bottom: 2px;;
+  bottom: 2px;
+  font-weight:bold;
 }
 
 .free {
@@ -169,22 +180,30 @@ h1 {
   font-size: 26;
   text-decoration: none;
   bottom: 106px;
+  font-weight:bold;
 }
 
 h2 {
-  background-color:rgba(255,204,53,.4);
-  transform:skew(9deg,0deg);
   font-style:italic;
   font-size: 40;
   position: relative;
   bottom: 37px;
 }
 
+.bring-box {
+  background-color: rgba(255,204,53,.4);
+  transform: skew(9deg,0deg);
+  position: relative;
+  padding: 20px;
+  width: 978px;
+  top: 44px;
+}
+
 .hexagon {
   width: 24%;
   height: 48%;
   position: relative;
-  bottom: 45;
+  bottom: 6px;
 }
 
 .layout-three {
@@ -221,5 +240,6 @@ h2 {
   justify-content: center;
   font-size: 26;
   text-decoration:none;
+  font-weight:bold;
 }
 
