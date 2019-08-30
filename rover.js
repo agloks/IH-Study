@@ -104,7 +104,7 @@ function goForward(moves,sentido) {
         if(posição >= 10) {
             (moves === "b") ? mapa.position -= 10 : mapa.position += 10;
             return mapa.position;
-        }
+       }
     }
     else if(sentido.includes("W")) {
         log_constelation.push(sentido);
@@ -141,50 +141,23 @@ function moveBack(){//Move para sul com B argumento
     }
 }
 
-var quanty = rover_one["direction"].length;
-
-/*
-PARTE MANUAL:
-        
-        1 - REMOVER O COMENTARIO AQUI
-        2 - COMENTAR O O INTERIOR DO RANDOM ATÉ ONDE TA ESCRITO "AQUI"
-        3 - COMENTA OS REPONSAVEL PELO TRAVELOG MANUAL, E DESCOMENTA O DE TRAVELOG AUTOMATICO
-        4 - VERIFICA COMO ESTA A PROPRIEDADE DO OBJETO ROVER, LA EMCIMA
-
-//responsavel por fazer o travelLog manual
-for(let k = 0; k <  quanty ; k++){
-    commands(rover_one["direction"][k]);
-    rover_one.travelLog.push(mapa.position);
-}
-*/
- 
-//Random test
-
-var options = ["f","l","r","b"]
-var numbers = Math.floor(Math.random(4)*16)
-
-for(let x = 0;x < numbers; x += 1) {
-    rover_one["direction"].push(options[Math.floor(Math.random()*4)]);
-    rover_two["direction"].push(options[Math.floor(Math.random()*4)]);
+function manualTravel(rover) {
+    let quanty = rover["direction"].length;
+    //responsavel por fazer o travelLog manual
+    for(let k = 0; k <  quanty ; k++){
+    commands(rover["direction"][k]);
+    rover.travelLog.push(mapa.position);
+    }
 }
 
-
-//responsavel por fazer o travelLog random
-for(let y = 0;y < numbers; y += 1) {
-    commands(rover_one["direction"][y]);
-    rover_one.travelLog.push(mapa.position);
-}
-
-//----------------------- ATÉ AQUI -------------------------------
-
-var count_local = 0;
-function prints(a,rover,obstacle) {
-    if(OBSTACLES.includes(a)=== true || obstacle.includes(a)) {
+var count_local = 0;//global para prints
+function prints(coodernada,rover,obstacle) {
+    if(OBSTACLES.includes(coodernada)=== true || obstacle.includes(coodernada)) {
         console.log("Obstacle Found, Break");
         return false;
     }
     if (error !== true) {
-        console.log("Rover Actual Commands: "+ rover.direction[count_local] +" ||| Rover here in: "+mapa.coodernate[a] + " ||| Constelation to : "  + log_constelation[count_local]);
+        console.log("Rover Actual Commands: "+ rover.direction[count_local] +" ||| Rover here in: "+mapa.coodernate[coodernada] + " ||| Constelation to : "  + log_constelation[count_local]);
         count_local += 1;
     }
     else {
@@ -193,6 +166,7 @@ function prints(a,rover,obstacle) {
     }
 }
 
+//reseta certas variaveis para pode atribuir o rover_two
 function reset() {
     mapa.position = 33;
     log_constelation = [];
@@ -201,39 +175,55 @@ function reset() {
     sentido = "North";
     count_constelation = 0;
 }
-//starting...
-//rover 1 here
 
-var stop = true;//conditions
-
-for(let a = 0; a < rover_one.travelLog.length; a += 1){
-    if(stop !== false){
-        stop = prints(rover_one.travelLog[a],rover_one,[]);
+function run(travelLog,rover,obstacle_extra) {
+    let stop = true;//conditions
+    for(let a = 0; a < rover.travelLog.length; a += 1){
+        if(stop !== false){
+            stop = prints(travelLog[a],rover,obstacle_extra);
+        }
     }
 }
+
+function manual(commands,rover,obstacle_extra) {//obstacle_extra tem que ser array, caso não quera da obstaculo extra coloque [].
+    rover["direction"] = commands;
+    manualTravel(rover);
+    run(rover.travelLog,rover,obstacle_extra);
+}
+
+/*
+----------------------------------------------- MANUAL TEST ---------------------------------
+
+manual("frrrbbbrlrrl",rover_one,[]);
+console.log("\n"+"let's start other rover"+"\n");
+reset();
+manual("bbbllrf",rover_two,rover_one.travelLog);
+
+*/
+
+
+//---------------------------------------- RANDOM TEST --------------------------
+function randomTest(rover){
+    let options = ["f","l","r","b"]
+    let numbers = Math.floor(Math.random(4)*16)
+    for(let x = 0;x < numbers; x += 1) {
+        rover["direction"].push(options[Math.floor(Math.random()*4)]);
+    }
+    //responsavel por fazer o travelLog random
+    for(let y = 0;y < numbers; y += 1) {
+        commands(rover["direction"][y]);
+        rover["travelLog"].push(mapa.position);
+    }
+}
+
+
+//starting...
+//rover 1 here
+randomTest(rover_one);
+run(rover_one.travelLog,rover_one,[]);
 
 //rover 2 here
 console.log("\n"+"let's starting the two-rover"+"\n")
 reset();
-stop = true;
-
-//responsavel por fazer o travelLog random
-for(let y = 0;y < numbers; y += 1) {
-    commands(rover_two["direction"][y]);
-    rover_two.travelLog.push(mapa.position);
-}
-
-/*
-var quanty = rover_two["direction"].length;
-//responsavel por fazer o travelLog manual
-for(let k = 0; k <  quanty ; k++){
-    commands(rover_two["direction"][k]);
-    rover_two.travelLog.push(mapa.position);
-}*/
-
-
-for(let a = 0; a < rover_two.travelLog.length; a += 1){
-    if(stop !== false){
-        stop = prints(rover_two.travelLog[a],rover_two,rover_one.travelLog);
-    }
-}
+randomTest(rover_two);
+run(rover_two.travelLog,rover_two,rover_one.travelLog);
