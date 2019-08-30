@@ -123,7 +123,7 @@ function goForward(moves,sentido) {
     }
 }
 
-function moveForward(){//Move para norte com F argumento
+function moveForward(){
     let posição = mapa.position;
     log_constelation.push(sentido);
     if(LIMIT_FORWARD.includes(posição) === false) {
@@ -132,7 +132,7 @@ function moveForward(){//Move para norte com F argumento
     }
 }
 
-function moveBack(){//Move para sul com B argumento
+function moveBack(){
     let posição = mapa.position;
     log_constelation.push(sentido);
     if(LIMIT_BACK.includes(posição) === false) {
